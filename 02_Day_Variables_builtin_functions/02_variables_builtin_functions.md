@@ -231,9 +231,9 @@ print(num_str)                  # '10'
 num_str = '10.6'
 num_float = float(num_str)  # Convert the string to a float first
 num_int = int(num_float)    # Then convert the float to an integer
-print('num_int', int(num_str))      # 10
+# print('num_int', int(num_str))      # 这一句有误， string 为带小数点的字符串，无法直接用 int() 转换。
 print('num_float', float(num_str))  # 10.6
-num_int = int(num_float)
+# num_int = int(num_float)  # 上面已写过
 print('num_int', int(num_int))      # 10
 
 # str to list
