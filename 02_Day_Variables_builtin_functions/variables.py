@@ -38,3 +38,16 @@ print('Last name: ', last_name)
 print('Country: ', country)
 print('Age: ', age)
 print('Married: ', is_married)
+
+# 尝试
+
+print('Hello, World!')
+print('Hello',',', 'World','!')
+print(len('Hello, World!'))
+
+first_name = input('What is your name: ')
+age = input('How old are you? ')
+print(first_name)
+print(age)
+
+print(type(zip([1,2],[3,4])))    # zip
