@@ -50,7 +50,7 @@ names = ["Tom", "Tom", "Jack", "Mary"]
 unique_names = set(names)
 print(unique_names)  # 去重
 
-# Find an Euclidean distance between (2, 3) and (10, 8)
+# Find an Euclidean distance between (2, 3) and (10, 8) 计算两点之间的距离
 print(((10 - 2) ** 2 + (8 - 3) ** 2) ** 0.5)
 
 # 方法2
