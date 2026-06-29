@@ -180,6 +180,7 @@ slope_8 = (y2 - y1) / (x2 - x1)
 print('x-intercept: ', x1)
 print('y-intercept: ', y2)
 print('slope: ', slope_8)
+# 可以直接写 slope_8 = 2 因为原方程是斜截式
 
 x1, y1 = 2, 2
 x2, y2 = 6, 10
@@ -191,12 +192,13 @@ print('distance: ', distance)
 print('slope in task 8 equals to slope in task 9', slope_8 == slope_9)
 
 # task 11
-x = int(input('Enter the value of x to let y be 0: '))
+x = int(input('Enter the value of x to let y be 0: '))  # 可以直接写 x = -3
 y = x ** 2 + 6 * x + 9
 print('The value of y is: ', y)
 
 # task 12
 print(len('python') == len('dragon'))
+# 改成 print(len('python') != len('dragon')) 输出 False 因为题干要求 False的比较语句
 
 # task 13
 print('on' in 'python' and 'on' in 'dragon')
@@ -205,12 +207,12 @@ print('on' in 'python' and 'on' in 'dragon')
 print('jargon' in 'I hope this course is not full of jargon')
 
 # 15
-print('on' not in 'gragon' and 'on' not in 'python')
+print('on' not in 'dragon' and 'on' not in 'python')
 
 # 16
 length = len('python')
 length_float = float(length)
-length_string = str(length)
+length_string = str(length_float)
 print('length_float: ', length_float)
 print('length_string: ', length_string)
 
@@ -229,6 +231,7 @@ number = '9.8'
 number = float(number)
 number = int(number)
 print("int('9.8') is equal to 10.", number == 10)
+# 写成 print(int(float('9.8')) == 10) 避免报错，输出 False
 
 # 21
 hours = int(input('Enter hours: '))
