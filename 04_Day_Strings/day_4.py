@@ -220,6 +220,9 @@ print(result)  # 'HTML# CSS# JavaScript# React'
 challenge = ' thirty days of python '
 print(challenge.strip('y'))  # 5
 
+challenge = 'thirty days of pythoonnn'
+print(challenge.strip('noth')) # 'irty days of py'
+
 # replace(): Replaces substring inside
 
 challenge = 'thirty days of python'
@@ -229,6 +232,9 @@ print(challenge.replace('python', 'coding'))  # 'thirty days of coding'
 
 challenge = 'thirty days of python'
 print(challenge.split())  # ['thirty', 'days', 'of', 'python']
+
+challenge = 'thirty, days, of, python'
+print(challenge.split(', ')) # ['thirty', 'days', 'of', 'python']
 
 # title(): Returns a Title Cased String
 
@@ -248,3 +254,160 @@ challenge = 'thirty days of python'
 print(challenge.startswith('thirty'))  # True
 challenge = '30 days of python'
 print(challenge.startswith('thirty'))  # False
+
+
+
+# Exercises - Day 04
+print('\n# 1')
+task_title = ['Thirty', 'Days', 'Of', 'Python']
+result_1 = ' '.join(task_title)
+print(result_1)
+
+print('\n# 2')
+task_subtitle = ['Coding', 'For', 'All']
+result_2 = ' '.join(task_subtitle)
+print(result_2)
+
+print('\n# 3')
+company = 'Coding For All'
+
+print('\n# 4')
+print(company)
+
+print('\n# 5')
+print(len(company))
+
+print('\n# 6')
+company_upper = company.upper()
+print(company_upper)
+
+print('\n# 7')
+company_lower = company.lower()
+print(company_lower)
+
+print('\n# 8')
+print(company.capitalize())
+print(company.title())
+print(company.swapcase())
+
+print('\n# 9')
+# company_first = company.split()[0]
+company_first = company[0:6]  # Slice
+print(company_first)
+
+print('\n# 10')
+company_find = company.find('Coding')  # 或把find改成index
+print (company_find)
+
+print('\n# 11')
+company_replace = company.replace('Coding', 'Python')
+print(company_replace)
+
+print('\n# 12')
+sentence_12 = 'Python for Everyone'
+sentence_replace = sentence_12.replace('Everyone', 'All')
+print(sentence_replace)
+
+print('\n# 13')
+company_split = company.split()
+print(company_split)
+
+print('\n# 14')
+sentence_14 = "Facebook, Google, Microsoft, Apple, IBM, Oracle, Amazon"
+sentence_14_split = sentence_14.split(', ')
+print(sentence_14_split)
+
+print('\n# 15')
+print(company[0])
+
+print('\n# 16')
+# print(company[-1])  # 错误。需要index
+print(len(company) - 1)
+
+print('\n# 17')
+print(company[10])
+
+print('\n# 18')
+sentence_18 = 'Python For Everyone'
+acronym_18 = sentence_18[0] + sentence_18[7] + sentence_18[11]
+print(acronym_18)
+
+print('\n# 19')
+acronym_19 = company[0] + company[7] + company[11]
+print(acronym_19)
+
+print('\n# 20')
+print(company.find('C'))  # 或把find改成index
+
+print('\n# 21')
+print(company.find('F'))  # 或把find改成index
+
+print('\n# 22')
+sentence_22 = 'Coding For All People'
+print(sentence_22.rfind('l'))
+
+print('\n# 23')
+sentence_23 = 'You cannot end a sentence with because because because is a conjunction'
+print(sentence_23.index('because'))
+
+print('\n# 24')
+print(sentence_23.rindex('because'))
+
+print('\n# 25')
+# sentence_25 = sentence_23.replace(' because because because ', ' ')  # 错误。需要用slice
+# print(sentence_25)
+start = sentence_23.find('because')
+end = sentence_23.rindex('because') + len('because')
+print(sentence_23[start:end])
+print(sentence_23[:start] + sentence_23[end:])
+
+print('\n# 26')
+print(sentence_23.find('because'))
+
+print('\n# 27')
+print('Same to # 25')
+
+print('\n# 28')
+print(company.startswith('Coding'))
+
+print('\n# 29')
+print(company.endswith('coding'))
+
+print('\n# 30')
+sentence_30 = '   Coding For All      '
+sentence_30_new = sentence_30.strip(' ')
+print(sentence_30_new)
+
+print('\n# 31')
+sentence_31_1 = '30DaysOfPython'
+sentence_31_2 = 'thirty_days_of_python'
+print(sentence_31_1.isidentifier())
+print(sentence_31_2.isidentifier())
+
+print('\n# 32')
+libraries = ['Django', 'Flask', 'Bottle', 'Pyramid', 'Falcon']
+result = '# '.join(libraries)
+print(result)
+
+print('\n# 33')
+print('I am enjoying this challenge. \nI just wonder what is next.')
+
+print('\n# 34')
+print('Name\tAge\tCountry\tCity')
+print('Asabeneh\t250\tFinland\tHelsinki')
+
+print('\n# 35')
+radius = 10
+area = 3.14 * radius ** 2
+print('The area of a circle with radius {} is {:.0f} meters square.'.format(radius, area))
+
+print('\n# 36')
+a = 8
+b = 6
+print('{} + {} = {}'.format(a, b, a + b))
+print('{} - {} = {}'.format(a, b, a - b))
+print('{} * {} = {}'.format(a, b, a * b))
+print('{} / {} = {:.2f}'.format(a, b, a / b))
+print('{} % {} = {}'.format(a, b, a % b))
+print('{} // {} = {}'.format(a, b, a // b))
+print('{} ** {} = {}'.format(a, b, a ** b))
