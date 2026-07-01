@@ -192,3 +192,166 @@ print(ages)
 fruits_ed = sorted(fruits)
 print(fruits)
 print(fruits_ed)
+
+
+
+# Exercises: Day 5
+print('Exercises: Level 1')
+print('\n# 1')
+lst = []
+print(lst)
+
+print('\n# 2')
+lst = [0, 1, 2, 3, 4, 5, 6]
+print(lst)
+
+print('\n# 3')
+print(len(lst))
+
+print('\n# 4')
+first_item = lst[0]
+middle_item = lst[int((len(lst) - 1) / 2)]  # 可以使用 lst[len(lst) // 2]
+last_item = lst[-1]
+print(first_item, middle_item, last_item)
+
+print('\n# 5')
+mixed_data_types = ['shisy', 25, 170, 'no', 'Yutian']
+print(mixed_data_types)
+
+print('\n# 6')
+it_companies = ['Facebook', 'Google', 'Microsoft', 'Apple', 'IBM', 'Oracle', 'Amazon']
+
+print('\n# 7')
+print(it_companies)
+
+print('\n# 8')
+print(len(it_companies))
+
+print('\n# 9')
+print(it_companies[0])
+print(it_companies[len(it_companies) // 2])
+print(it_companies[-1])
+
+print('\n# 10')
+it_companies[0] = 'facebook0'
+print(it_companies)
+
+print('\n# 11')
+it_companies.append('Ig')
+print(it_companies)
+
+print('\n# 12')
+it_companies.insert(4, 'Meta')
+print(it_companies)
+
+print('\n# 13')
+it_companies[1] = it_companies[1].upper()
+print(it_companies)
+
+print('\n# 14')
+sentence = '#; '.join(it_companies)
+print(sentence)
+
+print('\n# 15')
+does_exist = 'IBM' in it_companies
+print(does_exist)
+
+print('\n# 16')
+it_companies.sort()
+print(it_companies)
+
+print('\n# 17')
+it_companies.reverse()
+print(it_companies)
+
+print('\n# 18')
+print(it_companies[:3])
+
+print('\n# 19')
+print(it_companies[-3:])
+
+print('\n# 20')
+middle_num = int(len(it_companies) // 2)
+print(it_companies[4])
+
+# 兼容奇数和偶数的写法
+# middle = len(it_companies) // 2
+# if len(it_companies) % 2 == 0:
+#     print(it_companies[middle - 1:middle + 1])
+# else:
+#     print(it_companies[middle])
+
+print('\n# 21')
+del it_companies[0]
+print(it_companies)
+
+print('\n# 22')
+del it_companies[3:5]
+print(it_companies)
+
+print('\n# 23')
+del it_companies[-1]
+print(it_companies)
+
+print('\n# 24')
+del it_companies[0:]
+print(it_companies)
+
+print('\n# 25')
+del it_companies
+# print(it_companies)
+
+print('\n# 26')
+front_end = ['HTML', 'CSS', 'JS', 'React', 'Redux']
+back_end = ['Node','Express', 'MongoDB']
+lst_join = front_end + back_end
+print(lst_join)
+
+print('\n# 27')
+full_stack = lst_join.copy()
+full_stack.insert(5, 'Python')
+full_stack.insert(6, 'SQL')
+print(full_stack)
+
+print('\nExercises: Level 2')
+print('\n# 1')
+ages = [19, 22, 19, 24, 20, 25, 26, 24, 25, 24]
+ages.sort()
+print(ages)
+min_age = ages[0]
+max_age = ages[-1]
+print('The min age is ', min_age)
+print('The max age is ', max_age)
+ages.insert(0, ages[0])
+ages.append(ages[-1])
+print(ages)
+median_age = (ages[5] + ages[6]) / 2
+print('The median age is ', median_age)
+average_age = sum(ages) / len(ages)
+print('The average age is ', average_age)
+range_age = ages[-1] - ages[0]
+print(range_age)
+print('The value of (min - average) is larger than the value of (max - average): ', abs(min_age - average_age) > abs(max_age - average_age))
+
+print('\n# 2')
+import sys
+from pathlib import Path
+
+ROOT_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT_DIR))
+
+from data.countries import countries
+
+# 上面的内容为连接到data文件夹中的countries.py文件
+
+print(len(countries))
+middle_country = countries[len(countries) // 2]
+print(middle_country)
+middle_num = int((len(countries) + 1) / 2)
+first_list = countries[:middle_num]
+second_list = countries[middle_num:]
+print(len(first_list))
+print(len(second_list))
+CH, RU, US, *scandic_countries = ['China', 'Russia', 'USA', 'Finland', 'Sweden', 'Norway', 'Denmark']
+print(CH, RU, US, scandic_countries)
+
