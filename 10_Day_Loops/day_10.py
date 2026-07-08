@@ -216,7 +216,11 @@ for country in countries_data:
         else:
             language_count[language] = 1
 
+# print(language_count)  # 仅查看，无作用
+
 language_count_list = list(language_count.items())
+
+# print(language_count_list)  # 仅查看，无作用
 
 language_count_list.sort(key=lambda item: item[1], reverse=True)
 
@@ -224,12 +228,13 @@ print("Ten most spoken languages:")
 for language, count in language_count_list[:10]:
     print(language, count)
 
-
 print('\n#3.3')
 population_list = []
 
 for country in countries_data:
     population_list.append((country["name"], country["population"]))
+
+# print(population_list)  # 仅查看，无作用
 
 population_list.sort(key=lambda item: item[1], reverse=True)
 
