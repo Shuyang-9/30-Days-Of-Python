@@ -278,6 +278,9 @@ print(get_last_ten_countries(countries_data))
 
 print('\nExercises: Level 3')
 print('\n# 1')
+import sys
+from pathlib import Path
+sys.path.append(str(Path(__file__).resolve().parents[1] / "data"))
 from countries_data import countries_data as countries_data_data
 # 按国家名称排序
 countries_by_name = sorted(countries_data_data, key=lambda country: country['name'])
