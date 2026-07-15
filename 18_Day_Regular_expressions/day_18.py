@@ -212,7 +212,7 @@ def most_frequent_words(text):
     word_count_list = []
     for word, count in word_count.items():
         word_count_list.append((count, word))  # 注意前后顺序
-    word_count_list.sort(reverse=True)  # 直接按照倒序排列，否则字母的顺序也会
+    word_count_list.sort(reverse=True)  # 直接按照倒序排列，否则字母的顺序也会重新排列，本题中需要按照它原来出现的位置选前三个
     return word_count_list[:3]
 print(most_frequent_words(cleaned_text)) # [(3, 'I'), (2, 'teaching'), (2, 'teacher')]
 
