@@ -110,31 +110,137 @@ print(p3.skills)
 
 
 
-
-
-
-
-
-
 # Exercises: Day 21
 # Exercises: Level 1
 print('\nExercises: Level 1')
 print('\n# 1')
+class Statistics:
+    def __init__(self, data):
+        self.data = data
+    def count(self):
+        return len(self.data)
+    def sum(self):
+        total = 0
+        for i in self.data:
+            total += i
+        return total
+    def min(self):
+        minimum = self.data[0]
+        for i in self.data:
+            if i < minimum:
+                minimum = i
+        return minimum
+    def max(self):
+        maximum = self.data[0]
+        for i in self.data:
+            if i > maximum:
+                maximum = i
+        return maximum
+    def range(self):
+        return self.max() - self.min()
+    def mean(self):
+        return self.sum() / self.count()
+    def median(self):
+        sorted_data = sorted(self.data)
+        if self.count() % 2 == 1:
+            return sorted_data[self.count() // 2]
+        else:
+            median1 = sorted_data[self.count() / 2 - 1]
+            median2 = sorted_data[self.count() / 2]
+            return (median1 + median2) / 2
+    def mode(self):
+        frequency = {}
+        for i in self.data:
+            if i in frequency:
+                frequency[i] += 1
+            else:
+                frequency[i] = 1
+        # mode = max(frequency, key=frequency.get)  # 找 value 最大的 key
+        # 更容易理解的写法
+        max_count = 0
+        mode = None
+        for num in frequency:
+            if frequency[num] > max_count:
+                max_count = frequency[num]
+                mode = num
+        # 或者
+        # for num, count in frequency.items():
+        #     if count > max_count:
+        #         max_count = count
+        #         mode = num
+        return (mode, max_count)
+    def var(self):
+        mean = self.mean()
+        squared_diff = 0
+        for i in self.data:
+            squared_diff += (i - mean) ** 2
+        variance = squared_diff / self.count()
+        return variance
+    def std(self):
+        return round(self.var() ** 0.5, 1)
+    def freq_dist(self):
+        frequency = {}
+        for i in self.data:
+            if i in frequency:
+                frequency[i] += 1
+            else:
+                frequency[i] = 1
+        result = []
+        for key, value in frequency.items():
+            percentage = value / self.count() * 100
+            result.append((percentage, key))
+        return sorted(result, reverse=True)
 
-
-
-
-
-
+ages = [31, 26, 34, 37, 27, 26, 32, 32, 26, 27, 27, 24, 32, 33, 27, 25, 26, 38, 37, 31, 34, 24, 33, 29, 26]
+data = Statistics(ages)
+print('Count:', data.count()) # 25
+print('Sum: ', data.sum()) # 744
+print('Min: ', data.min()) # 24
+print('Max: ', data.max()) # 38
+print('Range: ', data.range()) # 14
+print('Mean: ', data.mean()) # 30
+print('Median: ', data.median()) # 29
+print('Mode: ', data.mode()) # {'mode': 26, 'count': 5}
+print('Standard Deviation: ', data.std()) # 4.2
+print('Variance: ', data.var()) # 17.5
+print('Frequency Distribution: ', data.freq_dist()) # [(20.0, 26), (16.0, 27), (12.0, 32), (8.0, 37), (8.0, 34), (8.0, 33), (8.0, 31), (8.0, 24), (4.0, 38), (4.0, 29), (4.0, 25)]
 
 
 # Exercises: Level 2
 print('\nExercises: Level 2')
 print('\n# 1')
-
-
-
-
-
-
-
+class PersonAccount:
+    def __init__(self, firstname, lastname):
+        self.firstname = firstname
+        self.lastname = lastname
+        self.incomes = []
+        self.expenses = []
+    def add_income(self, amount, description):
+        self.incomes.append({'amount': amount, 'description': description})
+    def add_expense(self, amount, description):
+        self.expenses.append({'amount': amount, 'description': description})
+    def total_income(self):
+        total = 0
+        for income in self.incomes:
+            total += income['amount']
+        return total
+    def total_expense(self):
+        total = 0
+        for expense in self.expenses:
+            total += expense['amount']
+        return total
+    def account_balance(self):
+        return self.total_income() - self.total_expense()
+    def account_info(self):
+        return f"""
+        Name = {self.firstname} {self.lastname}
+        Total Income = {self.total_income()}
+        Total Expense = {self.total_expense()}
+        Balance = {self.account_balance()}
+        """
+person = PersonAccount('John', 'Smith')
+person.add_income = (7000, 'salary')
+person.add_income = (2000, 'freelance')
+person.add_expense = (3000, 'rent')
+person.add_expense = (3000, 'food')
+print(person.account_info())
