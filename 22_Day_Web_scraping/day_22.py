@@ -262,50 +262,31 @@ import json
 
 # 获取网页
 url = 'https://en.wikipedia.org/wiki/List_of_presidents_of_the_United_States'
-
 headers = {"User-Agent": "Mozilla/5.0"}
-
 response = requests.get(url, headers=headers)
 print(response.status_code)
-
 # 如果请求失败，直接抛出异常
 response.raise_for_status()
-
 content = response.content
 soup = BeautifulSoup(content, 'html.parser')
-
 print(soup.title)
-
 
 # 查看网页一共有几张表格，确认第几个表格是需要的
 tables = soup.find_all('table')
-
 print(len(tables))
-
 for i, table in enumerate(tables):
-    print(i, table.get_text(" ", strip=True)[:100])
-
+    print(i, table.get_text(" ", strip=True)[:100])  # " "表示不同标签中的文字用空格分隔
 
 # 已确认总统表格是第一个表格
 table = tables[0]
-
-
 # 提取表头，同时删除上标
 header_row = table.find("tr")
-
 header_names = []
-
 for th in header_row.find_all('th'):
-
     for sup in th.find_all("sup"):
         sup.decompose()
-
-    header_names.append(
-        th.get_text(" ", strip=True)
-    )
-
+    header_names.append(th.get_text(" ", strip=True))
 print(header_names)
-
 
 # 最终需要保存的字段
 columns = [
@@ -316,7 +297,6 @@ columns = [
     'Election',
     'Vice President'
 ]
-
 
 # HTML实际存在的8个列位置
 # Portrait和Party Color最终不保存，
@@ -332,139 +312,87 @@ full_columns = [
     'Vice President'
 ]
 
-
 # 清理单元格文字
 def clean_cell_text(cell):
-
     # 删除脚注
     for sup in cell.find_all("sup"):
         sup.decompose()
-
     value = cell.get_text(" ", strip=True)
-
     # 替换不间断空格
     value = value.replace("\xa0", " ")
-
     # 合并多余空格
     value = " ".join(value.split())
-
     # Democratic- Republican
     # 恢复成 Democratic-Republican
     value = value.replace("- ", "-")
-
     return value
-
 
 # 保存跨行单元格
 # key是实际列的位置，例如0、1、2……
 span_cache = {}
-
 records = []
-
 
 # 只读取tbody里面的数据行
 tbody = table.find("tbody")
-
 if tbody:
     rows = tbody.find_all("tr", recursive=False)
 else:
     rows = table.find_all("tr")[1:]
 
-
 for row in rows:
-
     # recursive=False避免读取单元格内部可能存在的其他表格
-    cells = row.find_all(
-        ["th", "td"],
-        recursive=False
-    )
-
+    cells = row.find_all(["th", "td"], recursive=False)
     # 当前网页视觉上的完整8列
     # 用None区分“还没有填入”和“单元格本身是空字符串”
     visual_row = [None] * len(full_columns)
-
-
     # ===================================
     # 1. 先把上一行留下的rowspan填入当前行
     # ===================================
-
     for column_index in list(span_cache.keys()):
-
-        visual_row[column_index] = (
-            span_cache[column_index]["value"]
-        )
-
+        visual_row[column_index] = (span_cache[column_index]["value"])
         span_cache[column_index]["remain"] -= 1
-
         if span_cache[column_index]["remain"] == 0:
             del span_cache[column_index]
-
-
     # ===================================
     # 2. 把当前HTML行中的真实单元格放入空位置
     # ===================================
-
     column_index = 0
-
     for cell in cells:
-
         # 跳过已经被rowspan占据的位置
         while (
             column_index < len(full_columns)
             and visual_row[column_index] is not None
         ):
             column_index += 1
-
-
         if column_index >= len(full_columns):
             break
-
-
         value = clean_cell_text(cell)
-
-
         rowspan_value = cell.get("rowspan", 1)
         colspan_value = cell.get("colspan", 1)
-
         # 防止网页中属性为空字符串
         rowspan = int(rowspan_value or 1)
         colspan = int(colspan_value or 1)
-
-
         # 一个单元格可能通过colspan占多列
         for offset in range(colspan):
-
             current_index = column_index + offset
-
             if current_index >= len(full_columns):
                 break
-
             visual_row[current_index] = value
-
-
             # 保存需要延续到后面行的内容
             if rowspan > 1:
-
                 span_cache[current_index] = {
                     "value": value,
                     "remain": rowspan - 1
                 }
-
-
         column_index += colspan
-
-
     # 没有内容的位置转换为空字符串
     visual_row = [
         value if value is not None else ""
         for value in visual_row
     ]
-
-
     # ===================================
     # 3. 从完整8列中提取真正需要保存的6列
     # ===================================
-
     record = {
         'No.': visual_row[0],
         'Name (birth–death)': visual_row[2],
@@ -473,37 +401,22 @@ for row in rows:
         'Election': visual_row[6],
         'Vice President': visual_row[7]
     }
-
     records.append(record)
-
-
 # ===================================
 # 过滤无效行
 # ===================================
-
 clean_records = []
-
 for record in records:
-
     if record["No."] == "":
         continue
-
     clean_records.append(record)
-
-
 # ===================================
 # 合并同一总统对应的多行
 # ===================================
-
 merged_records = {}
-
 for record in clean_records:
-
     no = record["No."]
-
-
     if no not in merged_records:
-
         merged_records[no] = {
             "No.": record["No."],
             "Name (birth–death)": record[
@@ -514,64 +427,37 @@ for record in clean_records:
             "Election": [],
             "Vice President": []
         }
-
-
     current = merged_records[no]
-
-
     # Party、Election和Vice President都可能有多个值
     for column in [
         "Party",
         "Election",
         "Vice President"
     ]:
-
         value = record[column]
-
         # 排除空字符串，同时避免重复
         if value and value not in current[column]:
             current[column].append(value)
 
-
 clean_records = list(merged_records.values())
-
-
 # ===================================
 # 只有一个值时，把列表还原成字符串
 # ===================================
-
 for record in clean_records:
-
     for column in [
         "Party",
         "Election",
         "Vice President"
     ]:
-
         if len(record[column]) == 1:
             record[column] = record[column][0]
-
         elif len(record[column]) == 0:
             record[column] = ""
-
-
 # ===================================
 # 保存JSON
 # ===================================
-
-with open(
-    "presidents.json",
-    "w",
-    encoding="utf-8"
-) as f:
-
-    json.dump(
-        clean_records,
-        f,
-        indent=4,
-        ensure_ascii=False
-    )
-
+with open("presidents.json", "w", encoding="utf-8") as f:
+    json.dump(clean_records, f, indent=4, ensure_ascii=False)
 
 print(clean_records[:10])
 
