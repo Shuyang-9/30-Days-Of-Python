@@ -1,0 +1,12 @@
+Username
+shuyangshi_db_user
+
+Password
+BhUpHpyPlc0IbKbN
+
+python -m pip install "pymongo[srv]==3.12"
+
+mongodb+srv://shuyang:30daysofpython@30daysofpython.ymd6jyv.mongodb.net/?appName=30DaysofPythons
+
+shuyang
+30daysofpython
